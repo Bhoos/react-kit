@@ -10,7 +10,9 @@
     "build:cjs": "tsc",
     "build:es6": "mkdir -p es6 && echo '{\"type\":\"module\"}' > es6/package.json && tsc --module es6 --outDir es6",
     "build": "yarn build:cjs && yarn build:es6",
-    "prepublishOnly": "yarn clean && yarn build"
+    "prepublishOnly": "yarn clean && yarn build",
+    "postversion": "git push && git push --tags",
+    "patch": "npm version patch --yes && npm publish --tag next"
   },
   "files": [
     "dist",

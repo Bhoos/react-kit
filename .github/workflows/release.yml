@@ -3,17 +3,13 @@ name: Promote to Production
 
 on:
   release:
-    types: [released]
+    type: [published]
 
 jobs:
   production-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          git config user.name bhoos-devops
-          git config user.email devops@bhoos.com
-
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -27,5 +23,3 @@ jobs:
           echo "Releasing ${pkg}@${version} to latest"
           # The following command doesn't work with `yarn tag` (2021-Jan-06)
           npm dist-tag add ${pkg}@${version} latest
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
